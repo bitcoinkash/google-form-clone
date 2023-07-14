@@ -16,7 +16,7 @@ git clone <repository-url>
 Navigate to the project directory:
 
 ```bash
-cd my-vitereact-app
+cd google-form-app-cloned
 ```
 
 Install the dependencies using npm:
