@@ -1,25 +1,32 @@
 import { Fragment } from "react";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import Grid from "@mui/material/Grid";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DatePicker from "@mui/lab/DatePicker";
-import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import FileCopyIcon from '@mui/icons-material/FileCopy';
+//MUI Components
+import {
+  TextField,
+  Box,
+  Paper,
+  FormGroup,
+  FormControlLabel,
+  Switch,
+  Divider,
+  IconButton,
+  Tooltip,
+  Grid,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { DatePicker } from "@mui/x-date-pickers";
+//Icons
+import {
+  DragIndicator as DragIndicatorIcon,
+  DeleteOutlineOutlined as DeleteOutlineOutlinedIcon,
+  FileCopy as FileCopyIcon,
+} from "@mui/icons-material";
 
+//Form Elements
 import { formEl } from "../constants";
 
 const DateInput = ({
@@ -29,7 +36,7 @@ const DateInput = ({
   handleRequired,
   handleElType,
   handleDate,
-  duplicateElement
+  duplicateElement,
 }) => {
   return (
     <Fragment>
@@ -54,9 +61,13 @@ const DateInput = ({
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   label="Select Date"
-                  value={item?.date}
-                  onChange={(newDate) => {handleDate(item.id,newDate);}}
-                  renderInput={(params) => <TextField fullWidth {...params} />}
+                  value={item?.date || new Date()} // use today's date if item?.date is not available
+                  onChange={(newDate) => {
+                    handleDate(item.id, newDate);
+                  }}
+                  components={{
+                    TextField: TextField,
+                  }}
                 />
               </LocalizationProvider>
             </Grid>
@@ -81,7 +92,7 @@ const DateInput = ({
             </Grid>
           </Grid>
         </Box>
-        <Divider variant="middle" />
+        <Divider light />
         <FormGroup row sx={{ alignItems: "center" }}>
           <Tooltip title="Delete Element" aria-label="delete-element">
             <IconButton
@@ -95,7 +106,7 @@ const DateInput = ({
           <Tooltip title="Duplicate Element" aria-label="duplicate-element">
             <IconButton
               aria-label="duplicate-element"
-              onClick={() => duplicateElement(item.id,item.type)}
+              onClick={() => duplicateElement(item.id, item.type)}
               sx={{ ml: 2 }}
             >
               <FileCopyIcon color="secondary" />
